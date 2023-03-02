@@ -1,0 +1,8 @@
+import pandas
+
+def bcb_query(id):
+    url = "http://api.bcb.gov.br/dados/serie/bcdata.sgs.{}/dados?formato=json".format(id)
+    dataframe = pandas.read_json(url)
+    dataframe["data"] = pandas.to_datetime(dataframe["data"], dayfirst=True)
+    dataframe.set_index("data", inplace=True)
+    return dataframe
